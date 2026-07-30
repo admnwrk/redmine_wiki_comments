@@ -1,0 +1,38 @@
+<div class="wiki-comment" id="comment-<%= comment.id %>">
+  <div class="wiki-comment-header">
+    <%= avatar(comment.author, size: '24') if respond_to?(:avatar) %>
+    <span class="wiki-comment-authoring">
+      <%= authoring(comment.created_on, comment.author) %>
+      <% if comment.edited? %>
+        &ndash; <%= l(:label_wiki_comment_edited, age: time_tag(comment.updated_on)).html_safe %>
+      <% end %>
+      <% if RedmineWikiComments.show_revision? && comment.wiki_page_version.present? %>
+        <%# Bezugsrevision: verlinkt auf genau die Fassung, die der Verfasser vor sich hatte. %>
+        <span class="wiki-comment-revision">
+          <%= link_to l(:label_wiki_comment_revision, version: comment.wiki_page_version),
+                      project_wiki_page_path(comment.project, comment.wiki_page.title,
+                                             version: comment.wiki_page_version),
+                      title: l(:label_wiki_comment_revision_hint) %>
+        </span>
+      <% end %>
+    </span>
+
+    <span class="wiki-comment-actions contextual">
+      <% if comment.editable_by? %>
+        <%= link_to sprite_icon('edit', l(:button_edit)),
+                    edit_wiki_comment_path(comment), class: 'icon icon-edit' %>
+        <%= link_to sprite_icon('del', l(:button_delete)),
+                    wiki_comment_path(comment),
+                    method: :delete, data: { confirm: l(:text_are_you_sure) },
+                    class: 'icon icon-del' %>
+      <% end %>
+    </span>
+  </div>
+
+  <div class="wiki-comment-body wiki">
+    <%# Rendern ueber Redmines Formatter: damit gelten die Wiki-Syntax der
+        Instanz, Makros und vor allem Redmines HTML-Sanitisierung. object:
+        sorgt dafuer, dass Anhaenge/Links der Seite aufgeloest werden. %>
+    <%= textilizable comment.comments, object: comment.wiki_page, headings: false %>
+  </div>
+</div>

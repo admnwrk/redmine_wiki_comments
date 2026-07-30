@@ -1,0 +1,20 @@
+de:
+  permission_view_wiki_comments: "Wiki-Kommentare ansehen"
+  permission_add_wiki_comments: "Wiki-Kommentare hinzufuegen"
+  permission_edit_own_wiki_comments: "Eigene Wiki-Kommentare bearbeiten/loeschen"
+  permission_manage_wiki_comments: "Wiki-Kommentare verwalten"
+
+  label_wiki_comment_plural: "Kommentare"
+  label_wiki_comment_edit: "Kommentar bearbeiten"
+  label_wiki_comment_revision: "Revision v%{version}"
+  label_wiki_comment_revision_hint: "Fassung der Seite, auf die sich der Kommentar bezieht"
+  label_wiki_comment_refers_to: "Bezieht sich auf %{version}"
+  label_wiki_comment_edited: "vor %{age} bearbeitet"
+  label_wiki_comment_sort_asc: "Aelteste zuerst"
+  label_wiki_comment_sort_desc: "Neueste zuerst"
+
+  setting_wiki_comments_sort_order: "Sortierung"
+  setting_wiki_comments_show_revision: "Bezugsrevision anzeigen"
+  setting_wiki_comments_show_revision_hint: "Zeigt im Kopf jedes Kommentars, auf welche Fassung der Seite er sich bezieht (verlinkt auf genau diese Revision)."
+  setting_wiki_comments_edit_window: "Bearbeitungsfenster (Minuten)"
+  setting_wiki_comments_edit_window_hint: "So lange darf der Verfasser seinen eigenen Kommentar noch aendern oder loeschen. 0 = unbegrenzt. Das Recht \"Wiki-Kommentare verwalten\" ist davon nicht betroffen."

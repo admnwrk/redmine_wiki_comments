@@ -1,0 +1,22 @@
+<% s = settings %>
+
+<p>
+  <label><%= l(:setting_wiki_comments_sort_order) %></label>
+  <%= select_tag 'settings[sort_order]',
+        options_for_select([[l(:label_wiki_comment_sort_asc),  'asc'],
+                            [l(:label_wiki_comment_sort_desc), 'desc']],
+                           s['sort_order'].presence || 'asc') %>
+</p>
+
+<p>
+  <label><%= l(:setting_wiki_comments_show_revision) %></label>
+  <%= hidden_field_tag 'settings[show_revision]', '0', id: nil %>
+  <%= check_box_tag 'settings[show_revision]', '1', s['show_revision'].to_s != '0' %>
+  <em class="info"><%= l(:setting_wiki_comments_show_revision_hint) %></em>
+</p>
+
+<p>
+  <label><%= l(:setting_wiki_comments_edit_window) %></label>
+  <%= text_field_tag 'settings[edit_window]', s['edit_window'], size: 6 %>
+  <em class="info"><%= l(:setting_wiki_comments_edit_window_hint) %></em>
+</p>

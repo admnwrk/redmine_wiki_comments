@@ -1,0 +1,34 @@
+<div id="wiki-comments" class="wiki-comments">
+  <h3>
+    <%= l(:label_wiki_comment_plural) %>
+    <span class="wiki-comments-count">(<%= comments.size %>)</span>
+  </h3>
+
+  <% if comments.any? %>
+    <% comments.each do |comment| %>
+      <%= render partial: 'wiki_comments/comment', locals: { comment: comment } %>
+    <% end %>
+  <% else %>
+    <p class="nodata"><%= l(:label_no_data) %></p>
+  <% end %>
+
+  <% if User.current.allowed_to?(:add_wiki_comments, page.wiki.project) %>
+    <%= form_tag(wiki_comments_path, method: :post, id: 'wiki-comment-form') do %>
+      <%= hidden_field_tag 'wiki_page_id', page.id %>
+      <p>
+        <%= text_area_tag 'wiki_comment[comments]', nil,
+                          rows: 5, class: 'wiki-edit',
+                          style: 'width:100%;box-sizing:border-box;resize:vertical;' %>
+      </p>
+      <p>
+        <%= submit_tag l(:button_add), name: nil %>
+        <% if RedmineWikiComments.show_revision? && page.content&.version %>
+          <span class="wiki-comment-form-hint">
+            <%= l(:label_wiki_comment_refers_to,
+                  version: l(:label_wiki_comment_revision, version: page.content.version)) %>
+          </span>
+        <% end %>
+      </p>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,22 @@
+<h2><%= l(:label_wiki_comment_edit) %></h2>
+
+<p class="wiki-comment-context">
+  <%= link_to h(@page.pretty_title), project_wiki_page_path(@project, @page.title) %>
+  <% if @comment.wiki_page_version.present? %>
+    &ndash; <%= l(:label_wiki_comment_revision, version: @comment.wiki_page_version) %>
+  <% end %>
+</p>
+
+<%= form_tag(wiki_comment_path(@comment), method: :patch) do %>
+  <div class="box">
+    <p>
+      <%= text_area_tag 'wiki_comment[comments]', @comment.comments,
+                        rows: 12, class: 'wiki-edit',
+                        style: 'width:100%;box-sizing:border-box;resize:vertical;' %>
+    </p>
+  </div>
+  <p>
+    <%= submit_tag l(:button_save) %>
+    <%= link_to l(:button_cancel), project_wiki_page_path(@project, @page.title, anchor: "comment-#{@comment.id}") %>
+  </p>
+<% end %>

@@ -1,0 +1,20 @@
+en:
+  permission_view_wiki_comments: "View wiki comments"
+  permission_add_wiki_comments: "Add wiki comments"
+  permission_edit_own_wiki_comments: "Edit/delete own wiki comments"
+  permission_manage_wiki_comments: "Manage wiki comments"
+
+  label_wiki_comment_plural: "Comments"
+  label_wiki_comment_edit: "Edit comment"
+  label_wiki_comment_revision: "Revision v%{version}"
+  label_wiki_comment_revision_hint: "Version of the page this comment refers to"
+  label_wiki_comment_refers_to: "Refers to %{version}"
+  label_wiki_comment_edited: "edited %{age} ago"
+  label_wiki_comment_sort_asc: "Oldest first"
+  label_wiki_comment_sort_desc: "Newest first"
+
+  setting_wiki_comments_sort_order: "Sort order"
+  setting_wiki_comments_show_revision: "Show referenced revision"
+  setting_wiki_comments_show_revision_hint: "Shows in each comment header which version of the page it refers to, linked to that exact revision."
+  setting_wiki_comments_edit_window: "Edit window (minutes)"
+  setting_wiki_comments_edit_window_hint: "How long the author may still change or delete their own comment. 0 = unlimited. The \"Manage wiki comments\" permission is not affected."
