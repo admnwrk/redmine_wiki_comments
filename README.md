@@ -1,65 +1,66 @@
 # Redmine Wiki Comments
 
-Kommentare an Wiki-Seiten. Unterhalb des Seiteninhalts entsteht ein
-Diskussionsbereich; jeder Eintrag protokolliert Autor, Zeitstempel und die
-Revision der Seite, auf die er sich bezieht:
+*[Deutsche Version](README_de.md)*
 
-> Von Christian Möser vor etwa 21 Stunden hinzugefügt. — Revision v12
+Comments on wiki pages. A discussion area appears below the page content; every
+entry records its author, a timestamp and the revision of the page it refers to:
 
-Die Revisionsangabe ist auf genau diese Fassung der Seite verlinkt.
+> Added by Christian Möser about 21 hours ago. — Revision v12
 
-## Voraussetzungen
+The revision is linked to exactly that version of the page.
+
+## Requirements
 
 * Redmine >= 6.0
 
 ## Installation
 
 ```bash
-cd /pfad/zu/redmine/plugins
-git clone <repo> redmine_wiki_comments
+cd /path/to/redmine/plugins
+git clone https://github.com/admnwrk/redmine_wiki_comments.git
 cd ..
 bundle exec rake redmine:plugins:migrate RAILS_ENV=production
-# Redmine/Container neu starten
+# restart Redmine / the container
 ```
 
-Deinstallation:
+Uninstall:
 
 ```bash
 bundle exec rake redmine:plugins:migrate NAME=redmine_wiki_comments VERSION=0 RAILS_ENV=production
 ```
 
-## Rechte
+## Permissions
 
-Die Rechte hängen im bestehenden Modul **Wiki** und stehen in der
-Rollenverwaltung bei den übrigen Wiki-Rechten:
+The permissions live in the existing **Wiki** module and appear in the role
+administration next to the other wiki permissions:
 
-| Recht | Bedeutung |
+| Permission | Meaning |
 | --- | --- |
-| Wiki-Kommentare ansehen | Diskussion unter der Seite sehen |
-| Wiki-Kommentare hinzufügen | neue Kommentare schreiben |
-| Eigene Wiki-Kommentare bearbeiten/löschen | eigene Beiträge ändern (ggf. nur innerhalb des Bearbeitungsfensters) |
-| Wiki-Kommentare verwalten | alle Beiträge ändern/löschen, ohne Zeitbegrenzung |
+| View wiki comments | see the discussion below the page |
+| Add wiki comments | write new comments |
+| Edit/delete own wiki comments | change your own entries (within the edit window, if configured) |
+| Manage wiki comments | change/delete any entry, without a time limit |
 
-Zusätzlich gilt immer die Sichtbarkeit der Wiki-Seite selbst: wer die Seite
-nicht sehen darf, sieht auch die Kommentare nicht.
+The visibility of the wiki page itself always applies on top: whoever cannot see
+the page cannot see its comments either.
 
-## Konfiguration
+## Configuration
 
 *Administration → Plugins → Redmine Wiki Comments*
 
-* **Sortierung** — älteste oder neueste zuerst
-* **Bezugsrevision anzeigen** — Revisionsangabe im Kopf jedes Kommentars
-* **Bearbeitungsfenster (Minuten)** — wie lange der Verfasser den eigenen
-  Beitrag noch ändern darf (0 = unbegrenzt)
+* **Sort order** — oldest or newest first
+* **Show referenced revision** — revision info in each comment header
+* **Edit window (minutes)** — how long the author may still change their own
+  entry (0 = unlimited)
 
-## Verhalten im Detail
+## Details
 
-* Kommentare hängen an der **Seite**, nicht an der Revision — sie bleiben nach
-  einer Bearbeitung der Seite sichtbar. Die Revisionsnummer wird beim Anlegen
-  festgehalten und bleibt danach unverändert.
-* Beim **Umbenennen** einer Seite bleiben die Kommentare erhalten (Bezug über
-  die Seiten-ID, nicht über den Titel).
-* Beim **Löschen** einer Seite werden ihre Kommentare mitgelöscht.
-* Kommentartexte werden mit Redmines eigenem Formatter gerendert (Textile oder
-  CommonMark, je nach Instanz) — inklusive Sanitisierung.
-* Im **Wiki-Export** (PDF/HTML, `/wiki/index`) erscheinen die Kommentare nicht.
+* Comments belong to the **page**, not to a revision — they stay visible after
+  the page is edited. The revision number is recorded when the comment is
+  created and does not change afterwards.
+* **Renaming** a page keeps its comments (they reference the page id, not the
+  title).
+* **Deleting** a page deletes its comments.
+* Comment texts are rendered with Redmine's own formatter (Textile or
+  CommonMark, depending on the instance), including sanitization.
+* Comments do not appear in the **wiki export** (PDF/HTML, `/wiki/index`).
