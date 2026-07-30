@@ -21,11 +21,8 @@ module RedmineWikiComments
 
       comments = page.wiki_comments.includes(:author).sorted(RedmineWikiComments.sort_order).to_a
 
-      context[:hook_caller].send(
-        :render_to_string,
-        partial: 'wiki_comments/list',
-        locals:  { page: page, comments: comments }
-      )
+      render_partial(context, partial: 'wiki_comments/list',
+                              locals: { page: page, comments: comments })
     rescue StandardError => e
       # Ein Fehler hier darf niemals die Wiki-Seite selbst zerlegen.
       Rails.logger.error("[WikiComments] Rendern fehlgeschlagen: #{e.class}: #{e.message}")
@@ -51,6 +48,19 @@ module RedmineWikiComments
           .wiki-comment-form-hint{margin-left:.6em;color:#888;font-size:.9em;}
         </style>
       CSS
+    end
+
+    private
+
+    # context[:hook_caller] ist bei View-Hooks der View-Kontext - der kennt
+    # render, aber KEIN render_to_string (das gibt es nur am Controller).
+    # Deshalb bevorzugt ueber den Controller rendern und nur zur Sicherheit
+    # auf den View zurueckfallen.
+    def render_partial(context, options)
+      controller = context[:controller]
+      return controller.send(:render_to_string, options) if controller.respond_to?(:render_to_string, true)
+
+      context[:hook_caller].render(options)
     end
   end
 end
